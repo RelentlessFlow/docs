@@ -1,0 +1,41 @@
+# 十、setState
+
+## 一、为什么使用setState？
+
+因为我们修改了状态state的时候,希望React根据最新的state来重新渲染界面,直接修改的方式,react并不会知道状态发生了改变。
+react没有实现类似于Vue2中Object.defineProperty或者是Vue3 proxy的方式来监听数据的变化,必须通过setState来告知react状态的改变。
+
+setState是继承自Component,当我们调用setState的时候,会重新执行render方法。
+
+## 二、setState同步异步？
+
+由React控制的事件处理程序，以及生命周期函数调用setState不会同步更新state 。
+
+React控制之外的事件中调用setState是同步更新的。比如原生js绑定的事件，setTimeout/setInterval等。
+
+### **传递函数()=>{return state}，react提供的参数props保证每次都拿到最新的**
+
+```javascript
+// 第一个函数调用更新state，第二个函数是更新完之后的回调。
+  this.setState((prevState, props) => {
+        return {
+         age: prevState.count + 1,
+     };　　// 获取state
+  　console.log(this.state); // 1});
+```
+
+### 设置setTimeout、setInterval，和事件循环有关系
+
+setTimeout(fn,0)的含义是，指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在"任务队列"的尾部添加一个事件，因此要等到同步任务和"任务队列"现有的事件都处理完，才会得到执行。
+
+```javascript
+setTimeout(() => {
+   this.setState(prevState => {
+      return {
+        age: prevState.count + 1,
+     };
+   });
+   // 获取state
+   console.log(this.state); // 1
+ }, 0);
+```
