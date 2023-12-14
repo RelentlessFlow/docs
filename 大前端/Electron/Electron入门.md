@@ -359,5 +359,83 @@ const mainWindow = new BrowserWindow({
 | autoHideMenuBar | 是否自动隐藏窗口菜单栏。 一旦设置，菜单栏将只在用户单击 `Alt` 键时显示 |
 | fullscreen      | 是否全屏幕                                                   |
 
-## 菜单管理
+## 五、菜单管理
 
+在electron中可以方便的对应用菜单进行定义。
+
+### 清除菜单
+
+下面先来学习不显示默认菜单，在主进程main.js中定义以下代码。
+
+```text
+const { BrowserWindow, app, Menu } = require('electron')
+Menu.setApplicationMenu(null)
+```
+
+我们需要用到 [Menu (opens new window)](https://www.electronjs.org/zh/docs/latest/api/menu-item)模块、[MenuItem (opens new window)](https://www.electronjs.org/zh/docs/latest/api/menu-item#new-menuitemoptions)菜单项与 [`accelerator` (opens new window)](https://www.electronjs.org/zh/docs/latest/api/accelerator)快捷键知识。
+
+```typescript
+const { Menu, BrowserWindow } = require('electron')
+
+const isMac = process.platform === 'darwin'
+
+function createMenu(window) {
+	const menu = Menu.buildFromTemplate([
+		{
+			label: '菜单',
+			submenu: [
+				{
+					label: '打开新窗口',
+					click: () => new BrowserWindow({ width: 800, height: 600 }).loadURL('https://baidu.com'),
+					accelerator: 'CommandOrControl+n',
+				},
+				{ //主进程向渲染进程发送消息
+					label: '增加',
+					click: () => window.webContents.send('CHANNEL_INCREMENT', 1),
+				},
+			],
+		},
+		{
+			type: 'separator',
+		},
+		isMac
+			? { label: '关闭', role: 'close' }
+			: { role: 'quit' },
+	]);
+	Menu.setApplicationMenu(menu);
+}
+
+module.exports = {
+	createMenu,
+}
+```
+
+### 右键菜单
+
+electron 可以定义快捷右键菜单，需要预加载脚本与主进程结合使用
+
+main.js 主进程定义ipc事件，当preload.js 触发事件时显示右键菜单
+
+```typescript
+ipcMain.on('show-context-menu', (event) => {
+  const popupMenuTemplate = [
+    { label: '退出', click: () => app.quit() },
+  ]
+
+  const menu = Menu.buildFromTemplate(
+    popupMenuTemplate,
+  )
+  menu.popup(
+    BrowserWindow.fromWebContents(event.sender),
+  )
+})
+```
+
+preload.js 预加载脚本定义，用于触发右键事件，然后通过IPC调用主进程显示右键菜单
+
+```typescript
+window.addEventListener('contextmenu', (e) => {
+  e.preventDefault()
+  ipcRenderer.send('show-context-menu')
+})
+```
