@@ -1,0 +1,259 @@
+ # 小满ZS 网络课程笔记
+
+ ## 一、OSI 七层模型和 TCP/IP
+
+TCP/IP 是 OSI 的实现
+
+![image-20240219195439971](https://md-1304276643.cos.ap-beijing.myqcloud.com/image-20240219195439971.png)
+
+### 物理层
+
+通过电、光、无线电波，获取他们的信号、电压，转换为 010101001 的 **传输比特流**，单位是 BIT
+
+这一层的设备主要是 **光纤、网线**
+
+### 数据链路层
+
+建立逻辑连接、进行硬件地址寻址、差错校验等功能；
+
+将 **比特** 组合成 **字节** 进而组合成 **帧**，用 MAC 地址 访问介质，错误发现但 不能 纠正。
+
+**MAC 地址：每个网卡的唯一标识。**
+
+通过 MAC 地址 就可以知道 发送者、接受者、内容以及 分组。
+
+数据的传输是 通过 **广播**的 形式，局域网内的所有计算机都能收到数据 
+
+这一层 的 设备主要是 **网卡、网络交换机**
+
+**网络层**
+
+数据链路层的数据在这一层被转换为**数据包**，然后通过路径选择、分段组合、地说，顺序、进/出路由等控制，将信息从一个网络设备传送到另一个网络设备。
+
+1. 寻址：对网络层而言使用**IP地址**来唯一标识互联网上的设备，网络层依靠IP地址进行相互通信(类似于数据链路层的MAC地址)
+
+2. 路由：在同一个网络中的内部道信并不需要网络层设备，仅仅靠数据链路层就可以完成相互通信对于不同的网络之间相互通信则必须借助路由器等三层成相互通信
+
+
+对于不同的网络之这一层的经常被叫**数据包**
+
+### 传输层
+
+传输层主要是定义 我们的端口号，以及控流和校验。
+
+有两个协议 TCP、UDP。
+
+TCP 是 面向连接的协议，可靠，会进行三次握手
+
+UDP 具备 较高的实时性，效率比 TCP高，没有三次握手，不稳定，速度快，应用于直播、游戏
+
+TCP 是可靠协议，UDP 是不可靠协议。
+
+这一层叫 **数据段**
+
+### 会话层
+
+类似于电话通话，在发送方和接收方之间进行通信时创建、维持、之后终止或断开连接。
+
+定义了一种机制，允许双方 启动 或者 停止 会话请求，在双方发生拥塞时 仍能保持对话。
+
+会话层包含了一种称为检查点(Checkpoint)的机制来维持可靠会话。检查点定义了一个最接近成功通信的点，并且定义了当发生内容丢失或损坏时需要回滚以便恢复丢失或损坏数据的点，即断点下载的原理
+
+这一层叫 **报文**
+
+### 表示层
+
+表示层主要做了几件重要的事情 安全，压缩，也是程序在网络中的一个翻译官
+
+1. 安全 在你的数据发送之前进行加密，在接受者的表示层进行解密
+2. 表示层还会对图片文件等格式进行解码和编码 例如 JPEG.需要转换成计算机能读懂的编码。ASCII 图片是人类能读懂的计算机
+
+这一层叫 **报文**
+
+### 应用层
+
+HTTP、FCP、Websocket等
+
+这一层叫 **报文**
+
+## 二、TCP 三次握手
+
+seq（sequence number）：序列号随机生成的
+
+ack（acknowledgement number）：确认序列号 时 ack = seq + 1
+
+ACK（acknowledgement）确认序列号有效
+
+SYN（synchronus）发起新连接
+
+流程大概就是
+
+客户端向服务端发送了 Seq = 0
+
+服务端向客户端发送了 ACK Seq=0 Ack=1（客户端的seq + 1）
+
+客户端向服务端发送了 Seq=1（seq + 1） Ack=1（服务端的Seq+1）
+
+<img src="https://md-1304276643.cos.ap-beijing.myqcloud.com/image-20240219203646435.png" alt="image-20240219203646435" style="zoom: 33%;float: left" />
+
+## 三、TCP 四次挥手
+
+四次挥手就是结束挥手的过程
+
+1. seq（sequence number），序列号随机生成的
+2. ack（acknowledgement number）确认号ack=seg+ 12.ack 
+3. ACK（acknowledgement）确定序列号有效
+4. SYN（synchronous）发起新连接
+5. FIN（FINISH）完成
+
+TIME_WAIT 后如果 客户端发送给服务端 的 ACK 请求丢失，服务端会重新发去 关闭连接 请求，保持TCP可靠性
+
+![WX20240219-210654@2x](https://md-1304276643.cos.ap-beijing.myqcloud.com/WX20240219-210654@2x.png)
+
+## 四、浏览器输入 URL 后发生了什么
+
+### DNS 解析
+
+DNS查询顺序如下，若其中一步成功直接跳到建立链接部分
+
+- 浏览器自身DNS
+- 操作系统DNS
+- 本地hosts文件
+- 向域名服务器发送请求
+  - 根域名服务器
+  - 顶级域名服务器
+  - 权威域名服务器
+    - 如果配置了CDN，会去CDN网络查找最近的DNS节点
+
+### TCP/IP OIS网络模型
+
+- 物理层
+- 数据链路层
+- 传输层（HTTP 三次握手 四次挥手）
+- 会话层（SSK、TLS）
+- 表示层（JPEG、加密）
+- 应用层（Http、FTP、DNS）
+
+### HTTP 报文
+
+- 响应标头
+
+- 请求表头
+
+- 请求方法（GET、POST、DELETE、PUT、PATCH、HEAD、OPTION）
+
+- OPTION 请求产生的情况
+
+  - 遇到跨域时，会发送预检请求
+
+    - OPTION 请求头
+
+      - Origin：请求来源域名
+      - Access-Control-Request-Method：实际请求的HTTP方法
+      - Access-Control-Request-Headers：实际请求将携带哪些自定义头部字段
+
+    - OPTION 响应头
+
+      - Access-Control-Allow-Origin：表示哪些域名可以跨域访问
+      - Access-Control-Allow-Methods：表示允许哪些HTTP方法
+      - Access-Control-Allow-Headers：表示允许哪些头部字段
+
+  - 如果服务器允许跨域请求，才会发送实际的POST请求，否则将阻止请求
+  - text-plan、form-data 等不会触发预检请求
+
+### 强缓存/协商缓存
+
+**1、强缓存**
+
+强缓存，就是浏览器强制缓存服务器提供的资源
+
+**响应头两个字段**
+
+Cache-Control：max-age-31536000	Expires：Wed，21 Oct 2015 07:28 00 GMT
+
+如果两者同时存在，优先 Cache-Control，忽略Expires
+
+**两种缓存来源**
+
+from dist cache 硬盘缓存
+
+from memory cache 内存缓存
+
+**2、协商缓存**
+
+Last-Modified: Sat，09 Apr 2023 20:11:23 GMT（最后被修改的时间）
+
+IF-Modified-Since: Sat，09 Apr 2023 20:11:23 GMT
+
+ETag: "dsklajdklsadlkaskld"
+
+If-None-Match: "dsklajdklsadlkaskld" 
+
+如果服务端发现Last-Modified和 IF-Modified-Since 相等，表示资源没有被改变过，直接返回304状态吗，浏览器直接从缓存中读取资源
+
+如果不等，或者资源改变，返回200状态码，并附上最新资源
+
+Etag 没有规定必须是文件Hash，可以自己设置版本号等
+
+### HTML 渲染
+
+1. 绘制DOM树（AST）
+2. 样式计算（CSSDOM）
+3. 回流（大流）重绘（绘色）
+
+### V8 解析 JavaScript
+
+<img src="https://md-1304276643.cos.ap-beijing.myqcloud.com/image-20240219222436497.png" alt="image-20240219222436497" style="zoom:50%;" />
+
+字节码 主要是 为了跨平台，解析器是JIT
+
+### CDN、负载均衡
+
+https://juejin.cn/post/6913704568325046279
+
+## 五、跨域、解决方案
+
+出于浏览器的同源策略限制，浏览器会拒绝跨域请求
+
+### 同源策略
+
+请求的时候拥有相同的 **协议 域名 端口** 只要有一个不同就属于跨域
+
+### 解决方案
+
+**1、前后端协商jsonp**
+
+**原理：**script的src标签不受同源策略的限制，可以跨域请求资源，但是只能发HTTP
+
+`<script src="xxxxx.cdn.xxxx/xxx.js">`
+
+**实现：**
+
+JS代码动态添加script标签，script脚本内容与服务端协商，服务器端需要返回一个JS函数
+
+**特点：**
+
+只支持GET请求、不安全、需要与后端协商
+
+**2、前端代理**
+
+就是在vite、webpack里配置一个node请求代理，具体看vite的proxy配置
+
+特点：仅支持开发模式，可以与后端协商，让vite代理的配置与nginx配置同步
+
+<img src="https://md-1304276643.cos.ap-beijing.myqcloud.com/image-20240219225846415.png" alt="image-20240219225846415" style="zoom:50%;float:left" />
+
+**3、后端配置响应头跨域**
+
+- Access-Control-Allow-Origin：表示哪些域名可以跨域访问
+- Access-Control-Allow-Methods：表示允许哪些HTTP方法
+- Access-Control-Allow-Headers：表示允许哪些头部字段
+
+4、nginx跨域
+
+```
+location /api {
+	proxy_pass http://xxx.xxx.xxx.xxx/5050
+}
+```
+
