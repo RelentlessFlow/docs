@@ -1,4 +1,4 @@
-# Dart 语言基础
+# Dart 语言TS开发者速通（ChatGPT）
 
 [toc]
 
@@ -49,7 +49,7 @@ void main(List<String> arguments) {
 
 #### final用法
 
-```
+```dart
 class Person {
   final String name;
   // Only static fields can be declared as const. (Documentation)
@@ -96,8 +96,8 @@ void main(List<String> arguments) {
    - `const` 声明的变量是编译时常量，其值必须在编译时确定。这意味着 `const` 变量的值必须是在编译时已知的常量表达式。
    - `const` 变量在声明时必须被初始化，不能在构造函数中赋值。它的值在编译时就已经确定，不会在运行时改变。
 
-   ```
-   dartCopy codeconst double pi = 3.14;
+   ```dart
+   const double pi = 3.14;
    const String greeting = "Hello, World!";
    ```
 
@@ -143,21 +143,21 @@ Dart中的数据类型转换通常涉及类型转换运算符或构造函数。�
 1. **整数转换为浮点数**：您可以使用 `toDouble()` 方法将整数转换为浮点数。
 
    ```dart
-   dartCopy codeint intValue = 42;
+   int intValue = 42;
    double doubleValue = intValue.toDouble();
    ```
 
 2. **浮点数转换为整数**：您可以使用 `toInt()` 方法将浮点数转换为整数。请注意，小数部分将被截断。
 
    ```dart
-   dartCopy codedouble doubleValue = 3.14159;
+   double doubleValue = 3.14159;
    int intValue = doubleValue.toInt();
    ```
 
 3. **字符串转换为整数或浮点数**：您可以使用 `int.parse()` 和 `double.parse()` 函数将字符串转换为整数或浮点数。
 
    ```dart
-   dartCopy codeString intString = "42";
+   String intString = "42";
    int intValue = int.parse(intString);
    
    String doubleString = "3.14159";
@@ -167,7 +167,7 @@ Dart中的数据类型转换通常涉及类型转换运算符或构造函数。�
 4. **整数或浮点数转换为字符串**：您可以使用 `toString()` 方法将整数或浮点数转换为字符串。
 
    ```dart
-   dartCopy codeint intValue = 42;
+   int intValue = 42;
    String intString = intValue.toString();
    
    double doubleValue = 3.14159;
@@ -177,7 +177,7 @@ Dart中的数据类型转换通常涉及类型转换运算符或构造函数。�
 5. **字符串转换为布尔值**：在Dart中，非空的字符串被视为 `true`，空字符串被视为 `false`。
 
    ```dart
-   dartCopy codeString nonEmptyString = "Hello";
+   String nonEmptyString = "Hello";
    bool isTrue = (nonEmptyString == true);
    
    String emptyString = "";
@@ -190,23 +190,23 @@ Dart中的字符串类型是内置的，它提供了许多字符串操作方法�
 
 1. **字符串连接**：您可以使用 `+` 运算符来连接两个字符串。
 
-   ```
-   dartCopy codeString firstName = "John";
+   ```dart
+   String firstName = "John";
    String lastName = "Doe";
    String fullName = firstName + " " + lastName; // "John Doe"
    ```
 
 2. **字符串插值**：Dart支持字符串插值，使用`${}`来将表达式嵌入到字符串中。
 
-   ```
-   dartCopy codeString name = "Alice";
+   ```dart
+   String name = "Alice";
    String greeting = "Hello, $name!";
    ```
 
 3. **多行字符串**：使用三重引号 `'''` 或 `"""` 可以创建多行字符串。
 
-   ```
-   dartCopy codeString multiLine = '''
+   ```dart
+   String multiLine = '''
      This is a
      multi-line
      string.
@@ -215,44 +215,44 @@ Dart中的字符串类型是内置的，它提供了许多字符串操作方法�
 
 4. **字符串长度**：使用 `length` 属性来获取字符串的长度。
 
-   ```
-   dartCopy codeString text = "Hello, World!";
+   ```dart
+   String text = "Hello, World!";
    int length = text.length; // 13
    ```
 
 5. **字符串分割**：使用 `split` 方法来将字符串拆分为列表。
 
-   ```
-   dartCopy codeString sentence = "This is a sample sentence";
+   ```dart
+   String sentence = "This is a sample sentence";
    List<String> words = sentence.split(" ");
    ```
 
 6. **字符串查找**：使用 `contains` 和 `indexOf` 方法来查找子字符串是否存在或获取其索引。
 
-   ```
-   dartCopy codeString text = "Dart is fun!";
+   ```dart
+   String text = "Dart is fun!";
    bool containsDart = text.contains("Dart"); // true
    int indexIs = text.indexOf("is"); // 5
    ```
 
 7. **字符串替换**：使用 `replaceAll` 或 `replaceFirst` 方法来替换字符串中的子字符串。
 
-   ```
-   dartCopy codeString text = "Hello, world!";
+   ```dart
+   String text = "Hello, world!";
    String newText = text.replaceAll("world", "Dart"); // "Hello, Dart!"
    ```
 
 8. **字符串剪裁**：使用 `substring` 方法来获取字符串的子串。
 
-   ```
-   dartCopy codeString text = "Dart is amazing!";
+   ```dart
+   String text = "Dart is amazing!";
    String subtext = text.substring(5, 7); // "is"
    ```
 
 9. **字符串大小写转换**：使用 `toLowerCase` 和 `toUpperCase` 方法来将字符串转换为小写或大写。
 
-   ```
-   dartCopy codeString text = "Hello, Dart!";
+   ```dart
+   String text = "Hello, Dart!";
    String lowercase = text.toLowerCase(); // "hello, dart!"
    String uppercase = text.toUpperCase(); // "HELLO, DART!"
    ```
@@ -342,50 +342,46 @@ Dart的`List`类提供了许多静态方法，这些方法允许您在不创建`
 
 1. **`List.from`**：创建一个新的`List`，其元素与另一个可迭代对象相同。例如，您可以将一个`Iterable`转换为`List`。
 
-   ```
-   dartCopy codeIterable<int> iterable = [1, 2, 3];
+   ```dart
+   Iterable<int> iterable = [1, 2, 3];
    List<int> list = List<int>.from(iterable);
    ```
 
 2. **`List.of`**：创建一个包含指定元素的新`List`。它允许您指定列表的初始内容。
 
-   ```
-   dartCopy code
+   ```dart
    List<int> list = List.of([1, 2, 3]);
    ```
-
+   
 3. **`List.generate`**：根据指定的生成器函数创建一个新的`List`。该函数生成列表中的每个元素。
 
-   ```
-   dartCopy code
+   ```dart
    List<int> list = List.generate(5, (index) => index * 2);
    ```
-
+   
 4. **`List.filled`**：创建一个具有指定长度和初始值的新`List`。
 
-   ```
-   dartCopy code
+   ```dart
    List<int> list = List.filled(3, 0); // 创建一个长度为3，初始值为0的List
    ```
-
+   
 5. **`List.empty`**：创建一个空的、不可变的`List`，用于表示空列表。
 
-   ```
-   dartCopy code
+   ```dart
    List<int> emptyList = List<int>.empty();
    ```
-
+   
 6. **`List.unmodifiable`**：创建一个不可变的`List`，该列表的内容不可更改。
 
-   ```
-   dartCopy codeList<int> list = [1, 2, 3];
+   ```dart
+   List<int> list = [1, 2, 3];
    List<int> unmodifiableList = List<int>.unmodifiable(list);
    ```
 
 7. **`List.cast`**：将一个`List`强制转换为另一种类型的`List`，并返回一个新的`List`。
 
-   ```
-   dartCopy codeList<num> numbers = [1, 2, 3];
+   ```dart
+   List<num> numbers = [1, 2, 3];
    List<int> integers = numbers.cast<int>();
    ```
 
@@ -467,7 +463,7 @@ void main(List<String> arguments) {
 1. 将一个列表展开为另一个列表：
 
 ```dart
-codeList<int> list1 = [1, 2, 3];
+List<int> list1 = [1, 2, 3];
 List<int> list2 = [4, 5, ...list1];
 print(list2); // 输出 [4, 5, 1, 2, 3]
 ```
@@ -475,7 +471,7 @@ print(list2); // 输出 [4, 5, 1, 2, 3]
 2. 合并多个列表：
 
 ```dart
-codeList<int> list1 = [1, 2, 3];
+List<int> list1 = [1, 2, 3];
 List<int> list2 = [4, 5];
 List<int> combinedList = [...list1, ...list2];
 print(combinedList); // 输出 [1, 2, 3, 4, 5]
@@ -484,7 +480,7 @@ print(combinedList); // 输出 [1, 2, 3, 4, 5]
 3. 创建一个新列表，包含旧列表的元素并添加新元素：
 
 ```dart
-codeList<int> list1 = [1, 2, 3];
+List<int> list1 = [1, 2, 3];
 List<int> newList = [...list1, 4, 5];
 print(newList); // 输出 [1, 2, 3, 4, 5]
 ```
@@ -557,7 +553,7 @@ void main() {
 
 2. **抛出异常**：要在代码中抛出异常，您可以使用 `throw` 关键字，后跟要抛出的异常对象。例如：
 
-   ```
+   ```dart
    throw Exception('This is an example exception');
    ```
    
@@ -735,13 +731,13 @@ Future<void> imageSubmit () async {
 
 `Completer `使用时需要先进行实例化
 
-```
+```dart
 final completer = Completer<String>();
 ```
 
 `completer.complete/completer.completeError` 设置Future结果
 
-```
+```dart
 completer.complete(value)//类似 Promise.resolve 但是不直接返回，需要通过return completer.future返回
 completer.completeError(error)  //类似 Promise.reject 其他同上
 ```
@@ -757,11 +753,11 @@ return completer.future // 转为 Future<T>
 
 #### Future 实例属性
 
-- Future<R> then<R>(FutureOr<R> onValue(T value), {Function? onError});
-- Future<T> catchError(Function onError, {bool test(Object error)?});
-- Future<T> whenComplete(FutureOr<void> action());
-- Future<T> timeout(Duration timeLimit, {FutureOr<T> onTimeout()?});  Future 执行超时
-- instance.ignore()  // 无视这一个Future 实例的结果
+- `Future<R> then<R>(FutureOr<R> onValue(T value), {Function? onError});`
+- `Future<T> catchError(Function onError, {bool test(Object error)?});`
+- `Future<T> whenComplete(FutureOr<void> action());`
+- `Future<T> timeout(Duration timeLimit, {FutureOr<T> onTimeout()?});`  Future 执行超时
+- `instance.ignore()`  无视这一个Future 实例的结果
 
 #### Future 静态属性
 
@@ -780,9 +776,9 @@ return completer.future // 转为 Future<T>
 批量操作 Future
 
 1. `Future.forEach(futures, (future) {})` : 对futures 数组进行迭代
-2. Future.doWhile() 作用不详
+2. `Future.doWhile()` 作用不详
 
-利用Future.forEach 实现一个类似 Promise.allSettle的函数
+利用`Future.forEach` 实现一个类似 `Promise.allSettle`的函数
 
 ```dart
 enum FutureStatus { fulfilled, rejected }
