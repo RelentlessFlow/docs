@@ -249,7 +249,7 @@ p { font-size: 16px; } /* line-height: 40px */
 
 **rem + 媒体查询**
 
-<img src="https://md-1304276643.cos.ap-beijing.myqcloud.com/image-20240221145850430.png" alt="image-20240221145850430" style="zoom:50%;" />=
+<img src="https://md-1304276643.cos.ap-beijing.myqcloud.com/PicGo/image-20240221145850430.png" alt="image-20240221145850430" style="zoom:50%;" />=
 
 rem 是长度单位，实际长度为根元素 * rem
 
@@ -257,4 +257,4 @@ rem 是长度单位，实际长度为根元素 * rem
 
 **vh、vh**
 
- 网页视口宽度，但是在微前端和iframe中 无法保证视口宽度为整个网页，导致长度计算失效
+ 网页视口宽度，但是在微前端和iframe中 无法保证视口宽度为整个网页，导致长度计算失效/
