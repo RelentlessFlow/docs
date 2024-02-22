@@ -111,6 +111,10 @@ app.whenReady().then(() => {
 })
 ```
 
+另外推荐一个 **React + TypeScript + Vite + Electron** 的脚手架
+
+https://github.com/maxstue/vite-reactts-electron-starter
+
 ## 二、Electron 进程通信
 
 ### 1、Electron 进程
