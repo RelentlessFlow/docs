@@ -71,21 +71,25 @@ console.log(obj); // { a: 1, b: 2, c: 3 }
 当对象中只有一级属性，没有二级属性的时候，此方法为深拷贝，但是对象中有对象的时候，此方法，在二级属性以后就是浅拷贝。
 
 ```javascript
-function _deepClone(source) {
-  let target;
-  if(typeof source === 'object') {
-    target = Array.isArray(source) ? [] : {}
-    for(let key in source) {
-      if(source.hasOwnProperty(key)) {
-        if(typeof source[key] !== 'object') {
-          target[key] = source[key]
-        } else {
-          target[key] = _deepClone(source[key])
-        }
-      }
+function deepClone(obj) {
+    if(!obj || typeof obj !== 'object') {
+        return obj;
     }
-  }
+
+    const target = Array.isArray(obj) ? [] : {};
+
+    for(const key in obj) {
+        if(obj.hasOwnProperty(key)) {
+            target[key] = typeof obj[key] === 'object'
+                ? deepClone(obj[key])
+                : obj[key]
+        }
+    }
+
+    return target;
 }
+
+export { deepClone }
 ```
 
 ### JS实现的深拷贝
