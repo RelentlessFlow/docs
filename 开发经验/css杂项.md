@@ -170,3 +170,25 @@ background-clip:content-box;
 }
 ```
 
+### 13、CSS Module
+
+:global 取第三方组件内class
+
+```less
+@import '@/styles/index.less';
+
+.calendar {
+
+    &_dot {
+        font-family: 800;
+        font-size: 40px;
+        color: @primaryColor;
+        margin-top: 10px;
+
+        :global(.van-calendar__selected-day) & {
+            color: @textColor-8;
+        }
+    }
+}
+```
+
