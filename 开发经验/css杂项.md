@@ -192,3 +192,16 @@ background-clip:content-box;
 }
 ```
 
+### 14、Flex + Margin 模拟 gap效果
+
+```
+.action {
+    margin-top: 52px;
+    display: flex;
+
+    &_button:not(:last-child) {
+        margin-right: 20px; /* 设置按钮之间的右侧间隔 */
+    }
+}
+```
+
