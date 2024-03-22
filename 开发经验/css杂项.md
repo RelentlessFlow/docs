@@ -1,15 +1,15 @@
+[toc]
+
 ## 技巧
 
-#### 1. 按钮和背景常用颜色
+### 1、按钮和背景常用颜色
 
 ```css
 background: linear-gradient(to bottom, #f3f3f3, #ddd, #f3f3f3); /* 按钮颜色 */
 background-color: #ddd; /* 背景色 */
 ```
 
-### 好看的滑动条
-
-#### 2. CSS3 appearance 属性
+### 2、CSS3 appearance 属性
 
 使 div 元素看上去像一个按钮：
 
@@ -24,7 +24,7 @@ appearance:button;
 
 ```
 
-#### 3. ::-webkit-slider-thumb（滑动条的按钮）
+### 3、::-webkit-slider-thumb（滑动条的按钮）
 
 > https://developer.mozilla.org/zh-CN/docs/Web/CSS/::-webkit-slider-thumb
 
@@ -41,7 +41,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 ```
 
-#### 4. 利用transform实现div快速居中
+### 4、利用transform实现div快速居中
 
 ```css
 .right #title {
@@ -52,7 +52,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 ```
 
-#### 5. 英文单词首字母大写
+### 5、英文单词首字母大写
 
 > https://www.w3school.com.cn/cssref/pr_text_text-transform.asp
 
@@ -60,7 +60,7 @@ input[type="range"]::-webkit-slider-thumb {
 text-transform: capitalize;
 ```
 
-#### 6. CSS :before 选择器
+### 6、CSS :before 选择器
 
 在每个 <p> 元素的内容之前插入新内容：
 
@@ -73,14 +73,14 @@ p:before
 }
 ```
 
-#### 6. 背景图片缩放
+### 7、背景图片缩放
 
 ```css
 background: url(${pic1});
 background-size: contain;
 ```
 
-#### 7. 段落样式
+### 8、段落样式
 
 ```css
 p{
@@ -92,7 +92,7 @@ p{
 }
 ```
 
-#### 8. （微信小程序）限制两行文字，超出行数隐藏。
+### 9、（微信小程序）限制两行文字，超出行数隐藏。
 
 不知道为啥，写死的
 
@@ -104,7 +104,7 @@ p{
   text-overflow: ellipsis;
 ```
 
-### 9. CSS. 同心圆
+### 10、CSS. 同心圆
 
 ```css
 width: 15px;
@@ -116,7 +116,7 @@ background-color: $colorD;
 background-clip:content-box;
 ```
 
-### 10. 纯CSS实现点击div显示隐藏
+### 11、纯CSS实现点击div显示隐藏
 
 ```html
 <div>
@@ -138,13 +138,13 @@ background-clip:content-box;
 </style>
 ```
 
-### 11、居中自动剪裁图片
+### 12、居中自动剪裁图片
 
 ```css
 .cover { object-fit: cover; }
 ```
 
-### 12、图片1比1自适应 9宫格
+### 13、图片1比1自适应 9宫格
 
 ```jsx
 <div className={'pictures'}>
@@ -170,7 +170,7 @@ background-clip:content-box;
 }
 ```
 
-### 13、CSS Module
+### 14、CSS Module
 
 :global 取第三方组件内class
 
@@ -192,7 +192,7 @@ background-clip:content-box;
 }
 ```
 
-### 14、Flex + Margin 模拟 gap效果
+### 15、Flex + Margin 模拟 gap效果
 
 ```
 .action {
