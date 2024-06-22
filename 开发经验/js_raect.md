@@ -43,6 +43,17 @@ const objectToObjArray = (o = {}) => {
 };
 ```
 
+### 随机数
+
+```tsx
+function getRandomInteger(min: number, max: number) {
+    // 使用 Math.floor() 向下取整，确保结果为整数
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+```
+
+
+
 ## React
 
 1. 父组件拦截所有子组件点击事件
